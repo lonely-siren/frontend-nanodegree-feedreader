@@ -52,27 +52,53 @@ $(function() {
 
     /*Write a new test suite named "The menu" */
     describe('The menu', function() {
-        /* TODO: Write a test that ensures the menu element is
+        const body = document.querySelector('body');
+        /* Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
+         it('is hidden by default', function(){
+           expect(body.classList.contains('menu-hidden')).toBe(true);
+         });
 
-         /* TODO: Write a test that ensures the menu changes
+         /* Write a test that ensures the menu changes
           * visibility when the menu icon is clicked. This test
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
+          it('menu changes visibility when the icon is clicked', function(){
+            const menuIcon = document.querySelector('.menu-icon-link');
+            menuIcon.click();
+            expect(body.classList.contains('menu-hidden')).toBe(false);
+            menuIcon.click();
+            expect(body.classList.contains('menu-hidden')).toBe(true);
+        });
     });
 
     /* Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function() {
-        /* TODO: Write a test that ensures when the loadFeed
+        /* Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
+         beforeEach( function (done) {
+            loadFeed(0, done);
+        });
+
+        it('should have at least one .entry element within .feed container', function(done) {
+            const container = document.querySelector('.feed');
+            const elements = container.children;
+            expect(elements.length).not.toBe(0);
+
+            /* ensures that there is an element with .entry class */
+            for(const element of elements){
+                expect(element.querySelector('.entry')).toBeDefined();
+            }
+            done();
+        });
     });
 
     /* Write a new test suite named "New Feed Selection" */
