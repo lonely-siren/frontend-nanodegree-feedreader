@@ -103,10 +103,22 @@ $(function() {
 
     /* Write a new test suite named "New Feed Selection" */
     describe('New Feed Selection', function() {
-        /* TODO: Write a test that ensures when a new feed is loaded
+        /* Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-
+       var lastFeed;
+       beforeEach(function(done){
+           loadFeed(0, function (){
+               lastFeed = document.querySelector('.header-title').innerHTML;
+               loadFeed(1, done); // if index 1 is loaded, the following test will be executed
+           });
+       });
+       it('checks if content is different', function(done) {
+           // this checks the actual change of the content by checking the equality of the header title
+           const currentTitle = document.querySelector('.header-title').innerHTML;
+           expect(currentTitle === lastFeed).toBe(false);
+           done();
+       });
     });
 }());
