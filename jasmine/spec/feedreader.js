@@ -89,15 +89,8 @@ $(function() {
         });
 
         it('should have at least one .entry element within .feed container', function(done) {
-            const container = document.querySelector('.feed');
-            const elements = container.children;
-            expect(elements.length).not.toBe(0);
-
-            /* ensures that there is an element with .entry class */
-            for(const element of elements){
-                expect(element.querySelector('.entry')).toBeDefined();
-            }
-            done();
+          expect($('.feed').children().length).toBeGreaterThan(0);
+          done();
         });
     });
 
