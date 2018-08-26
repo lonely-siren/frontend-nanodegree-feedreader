@@ -90,6 +90,7 @@ $(function() {
 
         it('should have at least one .entry element within .feed container', function(done) {
           expect($('.feed .entry').length).toBeGreaterThan(0);
+          done();
         });
     });
 
